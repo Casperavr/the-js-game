@@ -3,6 +3,7 @@ const myPlayer = new Player();
 // const obstacle1 = new Obstacle();
 const obstArray = [];   // array of obstacle class instances
 
+// let pause = false;
 
 
 
@@ -10,6 +11,8 @@ const obstArray = [];   // array of obstacle class instances
 // FUNCTIONALITY: -----------------------------------------------
 
 // listening for kepresses
+
+
 document.addEventListener("keydown", (event) => {
 
     if (event.code === 'ArrowLeft') {
@@ -18,20 +21,43 @@ document.addEventListener("keydown", (event) => {
 
     if (event.code === 'ArrowRight') {
         myPlayer.moveRight();
-    }
+    } 
+
+    // if(event.code === "Space" && pause === false){
+    //     pause = true;
+    // } else
+
+    // if(event.code === "Space" && pause === true){
+    //     pause = false;
+    // }
 
 });
 
+
+
+//Math.floor(Math.random() * (maximum - minimum + 1) + minimum)
+
+
 // interval for creating obstacles
+
+
 setInterval(() => {
     const newObstacle = new Obstacle(); 
     obstArray.push(newObstacle);
 }, 3000);
 
 
+//obstacleinstance.domelement.remove()
+//remove from array
+
+
+
 setTimeout(() => {
-    setInterval(() => {obstArray.shift()}, 3000)
-}, 8000)
+    setInterval(() => {
+        obstArray[0].domElement.remove()
+        obstArray.shift()
+    }, 3000)
+}, 10000)
 
 
 // interval for moving obstacles down and checking for collisions
