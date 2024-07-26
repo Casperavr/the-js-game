@@ -3,14 +3,14 @@ const myPlayer = new Player();
 // const obstacle1 = new Obstacle();
 const obstArray = [];   // array of obstacle class instances
 
-// let pause = false;
+let isPaused = false;
 
 
 
 
 // FUNCTIONALITY: -----------------------------------------------
 
-// listening for kepresses
+// listening for keypresses
 
 
 document.addEventListener("keydown", (event) => {
@@ -23,36 +23,36 @@ document.addEventListener("keydown", (event) => {
         myPlayer.moveRight();
     } 
 
-    // if(event.code === "Space" && pause === false){
-    //     pause = true;
-    // } else
+    if(event.code === "Space" && isPaused === false){
+        isPaused = true;
+        pauseGame();
+        document.getElementById("pause").style.display = "inline-flex";
+    } else
 
-    // if(event.code === "Space" && pause === true){
-    //     pause = false;
-    // }
+    if(event.code === "Space" && isPaused === true){
+        isPaused = false;
+        startGame();
+        document.getElementById("pause").style.display = "none";
+    }
 
 });
 
+let obsCreateID;
+let obsDelID;
+let obsMoveID;
 
 
-//Math.floor(Math.random() * (maximum - minimum + 1) + minimum)
 
 
 // interval for creating obstacles
-
-
-setInterval(() => {
+obsCreateID = setInterval(() => {
     const newObstacle = new Obstacle(); 
     obstArray.push(newObstacle);
 }, 3000);
 
 
-//obstacleinstance.domelement.remove()
-//remove from array
-
-
-
-setTimeout(() => {
+// interval for deleting elements outside of window
+obsDelID = setTimeout(() => {
     setInterval(() => {
         obstArray[0].domElement.remove()
         obstArray.shift()
@@ -61,8 +61,7 @@ setTimeout(() => {
 
 
 // interval for moving obstacles down and checking for collisions
-
-setInterval(() => {
+obsMoveID = setInterval(() => {
     obstArray.forEach((obsIns) => {
         obsIns.moveDown();
 
@@ -77,5 +76,69 @@ setInterval(() => {
             console.log("suck it dumbass");
             location.href = "gameover.html"
         }
+
+        if(pause = false){
+
+        }
     });
 }, 100);
+
+
+// pausing logic
+
+function pauseGame(){
+    clearInterval(obsCreateID);
+    clearInterval(obsDelID);
+    clearInterval(obsMoveID);
+}
+
+
+
+
+function startGame(){
+    // interval for creating obstacles
+    obsCreateID = setInterval(() => {
+        const newObstacle = new Obstacle(); 
+        obstArray.push(newObstacle);
+    }, 3000);
+    
+    
+    // interval for deleting elements outside of window
+    obsDelID = setTimeout(() => {
+        setInterval(() => {
+            obstArray[0].domElement.remove()
+            obstArray.shift()
+        }, 3000)
+    }, 10000)
+    
+    
+    // interval for moving obstacles down and checking for collisions
+    obsMoveID = setInterval(() => {
+        obstArray.forEach((obsIns) => {
+            obsIns.moveDown();
+    
+            
+            // detect collision
+            if (
+                myPlayer.positionX < obsIns.positionX + obsIns.width &&
+                myPlayer.positionX + myPlayer.width > obsIns.positionX &&
+                myPlayer.positionY < obsIns.positionY + obsIns.height &&
+                myPlayer.positionY + myPlayer.height > obsIns.positionY
+            ){
+                console.log("suck it dumbass");
+                location.href = "gameover.html"
+            }
+    
+            if(pause = false){
+    
+            }
+        });
+    }, 100);
+}
+
+
+
+
+
+
+

@@ -25,3 +25,8 @@ body {
     position: absolute;
     border-radius: 50%;
 }
+
+.pause{
+    display: none;
+    position: absolute;
+}
