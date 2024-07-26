@@ -16,5 +16,6 @@ body {
 #player{
     background-color: rgb(250, 240, 221);
     position: absolute;
+    border-radius: 50%;
 
 }
