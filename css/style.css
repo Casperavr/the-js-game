@@ -17,5 +17,10 @@ body {
     background-color: rgb(250, 240, 221);
     position: absolute;
     border-radius: 50%;
+}
 
+.obstacle{
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    border-radius: 50%;
 }
